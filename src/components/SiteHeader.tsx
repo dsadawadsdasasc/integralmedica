@@ -4,7 +4,8 @@ import { ChevronDown, Menu, Search, ShoppingCart, Star, Truck, User as UserIcon,
 
 import { useCart } from "@/lib/cart";
 import { useSession } from "@/lib/use-session";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/official/logo.svg";
+import darknessLogo from "@/assets/official/darkness.webp";
 
 const NAV: { label: string; slug?: string; to?: string; caret?: boolean }[] = [
   { label: "Produtos", caret: true },
@@ -33,30 +34,30 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 w-full">
       {/* Tarja superior */}
-      <div className="bg-background text-foreground py-2 text-center text-[13px] font-bold">
+      <div className="bg-background text-foreground flex h-[29px] items-center justify-center text-[12px] font-bold">
         Seu Suplemento com <span className="text-primary">Segurança</span> e{" "}
         <span className="text-primary">Confiança</span>
       </div>
 
       {/* Barra principal */}
-      <div className="bg-[#231f20] text-white">
-        <div className="mx-auto flex h-[74px] max-w-[1600px] items-center gap-4 px-4">
+      <div className="bg-secondary text-secondary-foreground">
+        <div className="mx-auto flex h-[69px] max-w-[1000px] items-center gap-4 px-4 xl:max-w-[1000px]">
           <button className="lg:hidden" aria-label="Abrir menu" onClick={() => setOpen((v) => !v)}>
             {open ? <X className="size-6" /> : <Menu className="size-6" />}
           </button>
 
           <Link to="/" className="shrink-0">
-            <img src={logo} alt="Integralmedica" width={248} height={64} className="h-11 w-auto" />
+            <img src={logo} alt="Integralmedica" width={123} height={64} className="h-[47px] w-[91px] object-contain" />
           </Link>
 
-          <form onSubmit={submitSearch} className="mx-6 hidden max-w-[500px] flex-1 md:flex">
+          <form onSubmit={submitSearch} className="mx-5 hidden max-w-[362px] flex-1 md:flex">
             <div className="relative w-full">
               <input
                 value={term}
                 onChange={(e) => setTerm(e.target.value)}
                 placeholder="Busque por..."
                 aria-label="Buscar produtos"
-                className="text-foreground h-11 w-full rounded-md border border-white/20 bg-white px-4 pr-12 text-sm outline-none"
+                className="text-foreground bg-background h-[37px] w-full rounded-[3px] border border-border px-4 pr-12 text-[12px] outline-none"
               />
               <button
                 type="submit"
@@ -68,16 +69,14 @@ export function SiteHeader() {
             </div>
           </form>
 
-          <div className="ml-auto flex items-center gap-7">
-            <span className="font-display hidden text-lg leading-none font-bold tracking-widest uppercase xl:block">
-              Darkness
-            </span>
+          <div className="ml-auto flex items-center gap-6">
+            <img src={darknessLogo} alt="Darkness" className="hidden h-[49px] w-[46px] object-contain xl:block" />
 
             <div className="hidden items-center gap-2 xl:flex">
               <Truck className="size-7" strokeWidth={1.4} />
               <div className="text-[13px] leading-tight">
                 <p className="font-semibold">Rastreio</p>
-                <p className="text-white/80 underline">Acompanhe seu pedido</p>
+                <p className="text-secondary-foreground/80 underline">Acompanhe seu pedido</p>
               </div>
             </div>
 
@@ -85,7 +84,7 @@ export function SiteHeader() {
               <UserIcon className="size-7" strokeWidth={1.4} />
               <div className="hidden text-[13px] leading-tight sm:block">
                 <p className="font-semibold">Bem vindo,</p>
-                <p className="text-white/80 underline">{user ? "Minha conta" : "Acesse seu perfil"}</p>
+                <p className="text-secondary-foreground/80 underline">{user ? "Minha conta" : "Acesse seu perfil"}</p>
               </div>
             </Link>
 
@@ -103,8 +102,8 @@ export function SiteHeader() {
         </div>
 
         {/* Menu de categorias */}
-        <nav className="hidden bg-[#3d3a3b] lg:block">
-          <div className="mx-auto flex max-w-[1600px] items-center justify-center gap-10 px-4 py-3.5 text-[13px] font-semibold tracking-wide uppercase">
+        <nav className="bg-muted-foreground hidden lg:block">
+          <div className="mx-auto flex h-[30px] max-w-[1000px] items-center justify-between px-4 text-[10px] font-medium uppercase">
             {NAV.map((item) =>
               item.slug ? (
                 <Link
