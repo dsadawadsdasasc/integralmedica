@@ -1,11 +1,11 @@
 import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { Star, Truck, ShieldCheck, Minus, Plus } from "lucide-react";
+import { Truck, ShieldCheck, Minus, Plus } from "lucide-react";
 import { toast } from "sonner";
 
 import { productQuery } from "@/lib/catalog.functions";
-import { formatBRL } from "@/lib/catalog-types";
+import { formatBRL, installments } from "@/lib/catalog-types";
 import { productImage } from "@/lib/product-images";
 import { useCart } from "@/lib/cart";
 import { Button } from "@/components/ui/button";
@@ -94,22 +94,30 @@ function ProductPage() {
         </div>
 
         <div>
+          {(product.tags ?? []).length > 0 && (
+            <ul className="text-muted-foreground mb-3 flex flex-wrap gap-2 text-[10px] font-semibold uppercase">
+              {(product.tags ?? []).map((t) => (
+                <li key={t} className="border-border rounded-sm border px-1.5 py-0.5">
+                  {t}
+                </li>
+              ))}
+            </ul>
+          )}
           <h1 className="text-4xl font-bold uppercase">{product.name}</h1>
-          <div className="text-muted-foreground mt-2 flex items-center gap-1 text-sm">
-            <Star className="fill-primary text-primary size-4" />
-            {product.rating.toFixed(1)} · {product.reviews_count} avaliações
-          </div>
 
           <div className="mt-6">
             {product.compare_at_cents && (
-              <p className="text-muted-foreground text-sm line-through">
-                {formatBRL(product.compare_at_cents)}
+              <p className="text-muted-foreground text-sm">
+                De: <span className="line-through">{formatBRL(product.compare_at_cents)}</span> Por:
               </p>
             )}
             <p className="text-4xl font-bold">{formatBRL(product.price_cents)}</p>
-            <p className="text-muted-foreground text-sm">
-              ou 12x de {formatBRL(Math.round(product.price_cents / 12))} sem juros
-            </p>
+            {installments(product.price_cents) && (
+              <p className="text-muted-foreground text-sm">
+                ou {installments(product.price_cents)!.count}x de{" "}
+                {formatBRL(installments(product.price_cents)!.value)} sem juros
+              </p>
+            )}
           </div>
 
           {product.flavors.length > 1 && (
