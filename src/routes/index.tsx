@@ -5,7 +5,7 @@ import { Truck, ShieldCheck, CreditCard, Headphones } from "lucide-react";
 import { categoriesQuery, productsQuery } from "@/lib/catalog.functions";
 import { categoryImage } from "@/lib/product-images";
 import { ProductCard } from "@/components/ProductCard";
-import { Button } from "@/components/ui/button";
+
 import heroImg from "@/assets/hero.jpg";
 
 export const Route = createFileRoute("/")({
