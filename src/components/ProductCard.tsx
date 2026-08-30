@@ -1,13 +1,14 @@
 import { Link } from "@tanstack/react-router";
-import { Star } from "lucide-react";
 
-import { formatBRL, type Product } from "@/lib/catalog-types";
+import { formatBRL, installments, type Product } from "@/lib/catalog-types";
 import { productImage } from "@/lib/product-images";
 
 export function ProductCard({ product }: { product: Product }) {
   const discount = product.compare_at_cents
     ? Math.round((1 - product.price_cents / product.compare_at_cents) * 100)
     : 0;
+  const parcela = installments(product.price_cents);
+  const tags = product.tags ?? [];
 
   return (
     <Link
@@ -18,12 +19,7 @@ export function ProductCard({ product }: { product: Product }) {
       <div className="bg-muted relative">
         {discount > 0 && (
           <span className="bg-primary text-primary-foreground absolute top-2 left-2 z-10 rounded px-2 py-0.5 text-xs font-bold">
-            -{discount}%
-          </span>
-        )}
-        {product.is_new && (
-          <span className="bg-secondary text-secondary-foreground absolute top-2 right-2 z-10 rounded px-2 py-0.5 text-xs font-bold">
-            NOVO
+            {discount}% OFF
           </span>
         )}
         <img
@@ -36,21 +32,28 @@ export function ProductCard({ product }: { product: Product }) {
         />
       </div>
       <div className="flex flex-1 flex-col p-4">
-        <div className="text-muted-foreground flex items-center gap-1 text-xs">
-          <Star className="fill-primary text-primary size-3.5" />
-          {product.rating.toFixed(1)} ({product.reviews_count})
-        </div>
-        <h3 className="mt-1.5 text-base leading-tight font-semibold">{product.name}</h3>
+        {tags.length > 0 && (
+          <ul className="text-muted-foreground flex flex-wrap gap-x-2 gap-y-1 text-[10px] font-semibold uppercase">
+            {tags.map((t) => (
+              <li key={t} className="border-border rounded-sm border px-1.5 py-0.5">
+                {t}
+              </li>
+            ))}
+          </ul>
+        )}
+        <h3 className="mt-2 text-base leading-tight font-semibold">{product.name}</h3>
         <div className="mt-auto pt-3">
           {product.compare_at_cents && (
-            <p className="text-muted-foreground text-xs line-through">
-              {formatBRL(product.compare_at_cents)}
+            <p className="text-muted-foreground text-xs">
+              De: <span className="line-through">{formatBRL(product.compare_at_cents)}</span> Por:
             </p>
           )}
           <p className="text-xl font-bold">{formatBRL(product.price_cents)}</p>
-          <p className="text-muted-foreground text-xs">
-            ou 12x de {formatBRL(Math.round(product.price_cents / 12))}
-          </p>
+          {parcela && (
+            <p className="text-muted-foreground text-xs">
+              ou {parcela.count}x de {formatBRL(parcela.value)}
+            </p>
+          )}
         </div>
       </div>
     </Link>
