@@ -14,6 +14,7 @@ export interface Product {
   price_cents: number;
   compare_at_cents: number | null;
   image_key: string;
+  tags?: string[];
   flavors: string[];
   rating: number;
   reviews_count: number;
@@ -52,4 +53,11 @@ export function formatBRL(cents: number) {
     style: "currency",
     currency: "BRL",
   });
+}
+
+/** Mesma regra da loja oficial: parcelas de no mínimo R$ 50, até 6x. */
+export function installments(cents: number): { count: number; value: number } | null {
+  const count = Math.min(6, Math.floor(cents / 5000));
+  if (count < 2) return null;
+  return { count, value: cents / count };
 }
