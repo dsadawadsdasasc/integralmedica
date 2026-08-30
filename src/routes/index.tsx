@@ -133,7 +133,7 @@ function Home() {
       {/* Categorias */}
       <section className="mx-auto max-w-[1280px] px-4 py-14">
         <h2 className="text-center text-[28px] font-bold italic">Busque por categoria</h2>
-        <div className="mt-10 grid grid-cols-3 gap-x-4 gap-y-8 sm:grid-cols-4 lg:grid-cols-8">
+        <div className="mt-10 flex flex-wrap items-start justify-center gap-x-10 gap-y-8">
           {categories.map((c) => (
             <Link
               key={c.id}
