@@ -53,7 +53,11 @@ export const Route = createFileRoute("/")({
 function Home() {
   const { data: categories } = useSuspenseQuery(categoriesQuery);
   const { data: products } = useSuspenseQuery(productsQuery({}));
-  const featured = products.filter((p) => p.is_featured).slice(0, 8);
+  const [featuredCategory, setFeaturedCategory] = useState("creatina");
+  const selectedCategory = categories.find((category) => category.slug === featuredCategory);
+  const featured = products
+    .filter((product) => !selectedCategory || product.category_id === selectedCategory.id)
+    .slice(0, 4);
   const news = products.filter((p) => p.is_new).slice(0, 8);
 
   const [slide, setSlide] = useState(0);
@@ -136,15 +140,15 @@ function Home() {
       </section>
 
       {/* Categorias */}
-      <section className="mx-auto max-w-[1280px] px-4 py-14">
+      <section className="mx-auto max-w-[1024px] px-4 py-10">
         <h2 className="text-center text-[25px] font-bold italic">Busque por categoria</h2>
-        <div className="mt-9 flex flex-wrap items-start justify-center gap-x-9 gap-y-8">
+        <div className="mt-8 grid grid-cols-4 gap-x-5 gap-y-8 md:grid-cols-8">
           {categories.map((c) => (
             <Link
               key={c.id}
               to="/produtos"
               search={{ categoria: c.slug, busca: undefined }}
-              className="group flex w-[112px] flex-col items-center gap-3 text-center"
+              className="group flex min-w-0 flex-col items-center gap-3 text-center"
             >
               <span className="relative flex size-[112px] items-center justify-center transition-transform group-hover:scale-105">
                 <img src={categoryBackground} alt="" className="absolute inset-0 size-full" />
@@ -162,7 +166,7 @@ function Home() {
       </section>
 
       {/* Mais vendidos */}
-      <section className="mx-auto max-w-[1280px] px-4 pb-14">
+      <section className="mx-auto max-w-[1024px] px-4 pb-14 pt-4">
         <h2 className="text-center text-[28px] font-bold italic">Suplementos Mais Vendidos</h2>
         <div className="mt-2 text-center">
           <Link
@@ -173,7 +177,24 @@ function Home() {
             Ver todos
           </Link>
         </div>
-        <div className="mt-8 grid grid-cols-2 gap-4 lg:grid-cols-4">
+        <div className="mt-6 hidden items-center justify-center gap-1 overflow-x-auto md:flex">
+          {categories.slice(0, 6).map((category) => (
+            <button
+              key={category.id}
+              type="button"
+              onClick={() => setFeaturedCategory(category.slug)}
+              className={`relative shrink-0 px-4 py-2 text-[12px] font-bold uppercase ${
+                featuredCategory === category.slug ? "bg-primary text-primary-foreground" : "text-foreground"
+              }`}
+            >
+              {category.name}
+              {featuredCategory === category.slug && (
+                <span className="border-background border-t-primary absolute -bottom-2 left-1/2 -translate-x-1/2 border-x-[8px] border-t-[8px] border-x-transparent" />
+              )}
+            </button>
+          ))}
+        </div>
+        <div className="mt-7 grid grid-cols-2 gap-x-8 gap-y-10 lg:grid-cols-4">
           {featured.map((p) => (
             <ProductCard key={p.id} product={p} />
           ))}
