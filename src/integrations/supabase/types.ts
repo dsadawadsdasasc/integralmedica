@@ -167,6 +167,7 @@ export type Database = {
           flavors: string[]
           id: string
           image_key: string
+          image_url: string | null
           is_featured: boolean
           is_new: boolean
           name: string
@@ -185,6 +186,7 @@ export type Database = {
           flavors?: string[]
           id?: string
           image_key?: string
+          image_url?: string | null
           is_featured?: boolean
           is_new?: boolean
           name: string
@@ -203,6 +205,7 @@ export type Database = {
           flavors?: string[]
           id?: string
           image_key?: string
+          image_url?: string | null
           is_featured?: boolean
           is_new?: boolean
           name?: string
