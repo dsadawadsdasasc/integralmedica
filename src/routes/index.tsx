@@ -45,34 +45,55 @@ function Home() {
       <section className="relative overflow-hidden bg-[#c30000]">
         <img
           src={heroImg}
-          alt="Atleta treinando com halteres em academia"
+          alt="Atleta fitness em campanha Compre e Ganhe da Integralmédica"
           width={1920}
-          height={1080}
-          className="absolute inset-0 size-full object-cover opacity-35 mix-blend-luminosity"
+          height={760}
+          className="h-[420px] w-full object-cover sm:h-[520px] lg:h-[660px]"
         />
-        <div className="relative mx-auto max-w-[1400px] px-4 py-20 sm:py-28">
-          <h1 className="font-display max-w-3xl text-5xl leading-[0.95] font-bold text-white uppercase italic sm:text-7xl">
-            Compre e ganhe
-            <br />
-            um brinde
-            <br />
-            exclusivo
-          </h1>
-          <div className="mt-8">
-            <Button
-              asChild
-              size="lg"
-              className="rounded-none bg-white px-10 text-base font-bold tracking-wide text-[#c30000] uppercase hover:bg-white/90"
-            >
-              <Link to="/produtos" search={{ categoria: undefined, busca: undefined }}>
+        <div className="absolute inset-0">
+          <div className="mx-auto flex h-full max-w-[1600px] items-center px-4">
+            <div className="max-w-[46%]">
+              <h1 className="font-display text-[42px] leading-[0.92] font-bold text-white uppercase italic drop-shadow-lg sm:text-6xl lg:text-[86px]">
+                Compre e ganhe
+                <br />
+                um brinde
+                <br />
+                exclusivo
+              </h1>
+              <Link
+                to="/produtos"
+                search={{ categoria: undefined, busca: undefined }}
+                className="font-display mt-8 inline-flex h-14 items-center justify-center bg-white px-14 text-2xl font-bold tracking-wide text-[#c30000] uppercase italic transition-colors hover:bg-white/90"
+              >
                 Confira
               </Link>
-            </Button>
+              <p className="font-display mt-10 max-w-sm text-xs leading-snug font-semibold text-white/90 uppercase">
+                *Brindes válidos enquanto durarem os estoques.
+                <br />
+                Não cumulativos com outras promoções.
+                <br />
+                Consulte as condições no site.
+              </p>
+            </div>
+
+            <div className="ml-auto hidden gap-8 lg:flex">
+              {[
+                { valor: "R$369", nome: "Camiseta" },
+                { valor: "R$459", nome: "Mixer Pro" },
+              ].map((b) => (
+                <div
+                  key={b.nome}
+                  className="flex h-[500px] w-[290px] flex-col items-center justify-between rounded-md border-4 border-[#ff2a2a] bg-black/25 px-6 py-8 shadow-[0_0_25px_rgba(255,40,40,0.8),inset_0_0_25px_rgba(255,40,40,0.6)]"
+                >
+                  <div className="text-center">
+                    <p className="font-display text-2xl font-bold text-white uppercase italic">Acima de</p>
+                    <p className="font-display text-5xl font-bold text-white uppercase italic">{b.valor}</p>
+                  </div>
+                  <p className="font-display text-3xl font-bold text-white uppercase italic">{b.nome}</p>
+                </div>
+              ))}
+            </div>
           </div>
-          <p className="mt-10 max-w-md text-[11px] leading-relaxed text-white/80 uppercase">
-            *Brindes válidos enquanto durarem os estoques. Não cumulativos com outras promoções.
-            Consulte as condições no site.
-          </p>
         </div>
       </section>
 
