@@ -14,7 +14,7 @@ export const listCategories = createServerFn({ method: "GET" }).handler(async ()
 });
 
 export const listProducts = createServerFn({ method: "GET" })
-  .inputValidator((input: { category?: string; search?: string } | undefined) => input ?? {})
+  .inputValidator((input: { category?: string | undefined; search?: string | undefined } | undefined) => input ?? {})
   .handler(async ({ data: input }) => {
     const { getPublicClient } = await import("./supabase-public.server");
     const client = getPublicClient();
@@ -67,7 +67,7 @@ export const categoriesQuery = queryOptions({
   staleTime: 5 * 60 * 1000,
 });
 
-export const productsQuery = (params: { category?: string; search?: string }) =>
+export const productsQuery = (params: { category?: string | undefined; search?: string | undefined }) =>
   queryOptions({
     queryKey: ["products", params.category ?? "all", params.search ?? ""],
     queryFn: () => listProducts({ data: params }),
