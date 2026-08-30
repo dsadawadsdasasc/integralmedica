@@ -1,26 +1,43 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { Truck, ShieldCheck, CreditCard, Headphones } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Truck, ShieldCheck, CreditCard, Headphones, ChevronLeft, ChevronRight } from "lucide-react";
 
 import { categoriesQuery, productsQuery } from "@/lib/catalog.functions";
 import { categoryBackground, categoryImage } from "@/lib/product-images";
 import { ProductCard } from "@/components/ProductCard";
 
-import heroImg from "@/assets/official/hero.jpg";
+import b1 from "@/assets/official/banners/b1-brindes.jpg";
+import b2 from "@/assets/official/banners/b2-olympia.png";
+import b3 from "@/assets/official/banners/b3-creatinas.jpg";
+import b4 from "@/assets/official/banners/b4-primemd.png";
+import b5 from "@/assets/official/banners/b5-unitarios.png";
+import b6 from "@/assets/official/banners/b6-moda.jpg";
+
+const BANNERS = [
+  { src: b1, alt: "Compre e ganhe um brinde exclusivo Integralmedica" },
+  { src: b2, alt: "Olympia 2026 Integralmedica" },
+  { src: b3, alt: "Linha de creatinas Integralmedica" },
+  { src: b4, alt: "Pré-Treino Prime MD" },
+  { src: b5, alt: "Produtos unitários Integralmedica" },
+  { src: b6, alt: "Lançamento coleção de moda Integralmedica" },
+];
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Integralmédica | Suplementos e Whey Protein de Alta Performance" },
+      { title: "Integralmedica | Suplementos, Whey Protein e Creatina Oficiais" },
       {
         name: "description",
         content:
-          "Loja oficial Integralmédica: whey protein, creatina, pré-treino, barras e mais. Frete grátis acima de R$ 250 e até 12x sem juros.",
+          "Loja oficial Integralmedica: creatina, whey protein, pré-treino, barras e acessórios. Frete grátis acima de R$ 280 e 5% off no Pix.",
       },
-      { property: "og:title", content: "Integralmédica | Suplementos de Alta Performance" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:title", content: "Integralmedica | Suplementos de Alta Performance" },
       {
         property: "og:description",
-        content: "Whey protein, creatina, pré-treino e muito mais com entrega para todo o Brasil.",
+        content: "Creatina, whey protein, pré-treino e muito mais com entrega para todo o Brasil.",
       },
     ],
   }),
@@ -37,22 +54,57 @@ function Home() {
   const { data: categories } = useSuspenseQuery(categoriesQuery);
   const { data: products } = useSuspenseQuery(productsQuery({}));
   const featured = products.filter((p) => p.is_featured).slice(0, 8);
-  const news = products.filter((p) => p.is_new).slice(0, 4);
+  const news = products.filter((p) => p.is_new).slice(0, 8);
+
+  const [slide, setSlide] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setSlide((s) => (s + 1) % BANNERS.length), 6000);
+    return () => clearInterval(id);
+  }, []);
 
   return (
     <div>
-      <section className="relative overflow-hidden bg-primary">
-        <img
-          src={heroImg}
-          alt="Compre e ganhe um brinde exclusivo Integralmédica"
-          width={2560}
-          height={890}
-          className="aspect-[2560/890] w-full object-cover"
-        />
-        <button aria-label="Banner anterior" className="bg-secondary/80 text-secondary-foreground absolute top-1/2 left-3 hidden size-8 -translate-y-1/2 items-center justify-center text-2xl md:flex">‹</button>
-        <button aria-label="Próximo banner" className="bg-secondary/80 text-secondary-foreground absolute top-1/2 right-3 hidden size-8 -translate-y-1/2 items-center justify-center text-2xl md:flex">›</button>
-        <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 gap-1">
-          <span className="bg-background h-[3px] w-20" /><span className="bg-background/70 h-[3px] w-6" /><span className="bg-background/70 h-[3px] w-6" />
+      {/* Carrossel principal */}
+      <section className="bg-secondary relative overflow-hidden">
+        <div
+          className="flex transition-transform duration-500 ease-out"
+          style={{ transform: `translateX(-${slide * 100}%)` }}
+        >
+          {BANNERS.map((b, i) => (
+            <img
+              key={b.src}
+              src={b.src}
+              alt={b.alt}
+              width={2560}
+              height={890}
+              loading={i === 0 ? "eager" : "lazy"}
+              className="aspect-[2560/890] w-full shrink-0 object-cover"
+            />
+          ))}
+        </div>
+        <button
+          aria-label="Slide anterior"
+          onClick={() => setSlide((s) => (s - 1 + BANNERS.length) % BANNERS.length)}
+          className="bg-secondary/70 text-secondary-foreground absolute top-1/2 left-3 hidden size-9 -translate-y-1/2 items-center justify-center rounded-full md:flex"
+        >
+          <ChevronLeft className="size-5" />
+        </button>
+        <button
+          aria-label="Próximo slide"
+          onClick={() => setSlide((s) => (s + 1) % BANNERS.length)}
+          className="bg-secondary/70 text-secondary-foreground absolute top-1/2 right-3 hidden size-9 -translate-y-1/2 items-center justify-center rounded-full md:flex"
+        >
+          <ChevronRight className="size-5" />
+        </button>
+        <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 gap-1.5">
+          {BANNERS.map((b, i) => (
+            <button
+              key={b.src}
+              aria-label={`Ir para o slide ${i + 1}`}
+              onClick={() => setSlide(i)}
+              className={`h-[3px] transition-all ${i === slide ? "bg-background w-16" : "bg-background/60 w-6"}`}
+            />
+          ))}
         </div>
       </section>
 
@@ -65,7 +117,7 @@ function Home() {
 
       {/* Benefícios */}
       <section className="bg-muted/60">
-        <div className="mx-auto grid max-w-[980px] gap-6 px-4 py-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mx-auto grid max-w-[1100px] gap-6 px-4 py-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
             { icon: ShieldCheck, title: "Produtos Direto da Fábrica", text: "Qualidade, Lote Rastreável" },
             { icon: Truck, title: "Frete grátis p/ todo Brasil", text: "Em compras acima de R$280,00" },
@@ -109,6 +161,7 @@ function Home() {
         </div>
       </section>
 
+      {/* Mais vendidos */}
       <section className="mx-auto max-w-[1280px] px-4 pb-14">
         <h2 className="text-center text-[28px] font-bold italic">Suplementos Mais Vendidos</h2>
         <div className="mt-2 text-center">
@@ -127,9 +180,39 @@ function Home() {
         </div>
       </section>
 
+      {/* Texto institucional */}
+      <section className="bg-muted/50">
+        <div className="mx-auto max-w-[1000px] space-y-4 px-4 py-14 text-center">
+          <h2 className="text-[26px] font-bold italic">Suplementos Integralmedica</h2>
+          <p className="text-muted-foreground text-[15px] leading-relaxed">
+            Na Integralmedica, você encontra uma <strong>linha completa de suplementos para elevar sua performance e
+            te fazer alcançar seus objetivos.</strong> São opções de whey protein, creatina, BCAA, pré-treino e muito
+            mais, desenvolvidas para quem busca resultados reais, seja na hipertrofia, na definição ou na melhora da
+            saúde e disposição.
+          </p>
+          <Link
+            to="/produtos"
+            search={{ categoria: "whey-protein", busca: undefined }}
+            className="bg-primary text-primary-foreground inline-block rounded-sm px-8 py-3 text-sm font-bold uppercase"
+          >
+            Ver suplementos
+          </Link>
+        </div>
+      </section>
+
+      {/* Lançamentos */}
       {news.length > 0 && (
-        <section className="mx-auto max-w-[1280px] px-4 pb-14">
-          <h2 className="text-center text-[28px] font-bold italic">Lançamentos</h2>
+        <section className="mx-auto max-w-[1280px] px-4 py-14">
+          <h2 className="text-center text-[28px] font-bold italic">Lançamentos Integralmedica</h2>
+          <div className="mt-2 text-center">
+            <Link
+              to="/produtos"
+              search={{ categoria: undefined, busca: undefined }}
+              className="text-primary text-sm font-semibold underline"
+            >
+              Ver todos
+            </Link>
+          </div>
           <div className="mt-8 grid grid-cols-2 gap-4 lg:grid-cols-4">
             {news.map((p) => (
               <ProductCard key={p.id} product={p} />
@@ -138,6 +221,49 @@ function Home() {
         </section>
       )}
 
+      {/* Sobre nós */}
+      <section className="bg-secondary text-secondary-foreground">
+        <div className="mx-auto max-w-[1000px] space-y-4 px-4 py-14">
+          <h2 className="text-center text-[26px] font-bold italic">Sobre Nós</h2>
+          <p className="text-[15px] leading-relaxed opacity-90">
+            Com mais de 40 anos de história, somos pioneiros em suplementação esportiva no Brasil e, desde o primeiro
+            momento, imprimimos uma marca de inovação e excelência em produção e pesquisa. Hoje contamos com mais de
+            620 pessoas apaixonadas por suplementação, que trabalham diariamente para trazer ao consumidor a vanguarda
+            em nutrição esportiva.
+          </p>
+          <p className="text-[15px] leading-relaxed opacity-90">
+            A constante busca por inovação e promoção de saúde nos levou a criar marcas que encantam e ensinam.
+            Atualmente, o Grupo BRG contempla as marcas Integralmedica, Darkness e Nutrify.
+          </p>
+          <div className="text-center">
+            <Link to="/sobre" className="text-primary text-sm font-bold uppercase underline">
+              Conheça mais
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* IntegralTV */}
+      <section className="mx-auto max-w-[1280px] px-4 py-14">
+        <h2 className="text-center text-[26px] font-bold italic">Conheça a IntegralTV</h2>
+        <p className="text-muted-foreground mx-auto mt-3 max-w-[720px] text-center text-[14px]">
+          Aqui nós reunimos os monstros da #DarknessNation e os superatletas do #IntegralTeam. Acompanhe a rotina dos
+          nossos atletas, com conteúdos sobre dietas, dicas de suplementação, treinos e muito mais!
+        </p>
+        <div className="mt-8 grid gap-4 md:grid-cols-3">
+          {["bQsNKQgePiY", "o374emXcfsA", "TTibgXGA-as"].map((id) => (
+            <iframe
+              key={id}
+              src={`https://www.youtube.com/embed/${id}`}
+              title="IntegralTV"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="aspect-video w-full rounded-md"
+            />
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
