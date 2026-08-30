@@ -175,6 +175,7 @@ export type Database = {
           reviews_count: number
           slug: string
           stock: number
+          tags: string[]
         }
         Insert: {
           category_id: string
@@ -192,6 +193,7 @@ export type Database = {
           reviews_count?: number
           slug: string
           stock?: number
+          tags?: string[]
         }
         Update: {
           category_id?: string
@@ -209,6 +211,7 @@ export type Database = {
           reviews_count?: number
           slug?: string
           stock?: number
+          tags?: string[]
         }
         Relationships: [
           {
