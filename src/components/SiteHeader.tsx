@@ -124,11 +124,19 @@ export function SiteHeader() {
                 >
                   <Menu className="size-4" /> {item.label} <ChevronDown className="size-4" />
                 </Link>
+              ) : item.to === "/sobre" ? (
+                <Link
+                  key={item.label}
+                  to="/sobre"
+                  className="hover:text-primary flex items-center gap-2 transition-colors"
+                >
+                  {item.label} {item.caret && <ChevronDown className="size-4" />}
+                </Link>
               ) : (
                 <Link
                   key={item.label}
-                  to={item.to === "/sobre" ? "/sobre" : "/produtos"}
-                  search={item.to === "/sobre" ? undefined : { categoria: undefined, busca: undefined }}
+                  to="/produtos"
+                  search={{ categoria: undefined, busca: undefined }}
                   className="hover:text-primary flex items-center gap-2 transition-colors"
                 >
                   {item.label} {item.caret && <ChevronDown className="size-4" />}
