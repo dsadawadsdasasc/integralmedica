@@ -72,9 +72,24 @@ export function SiteFooter() {
           </p>
         </div>
       </div>
+      <div className="border-secondary-foreground/10 mx-auto grid max-w-7xl gap-8 border-t px-4 py-8 sm:grid-cols-2">
+        <div>
+          <h3 className="text-primary text-sm font-bold uppercase">Métodos de pagamento</h3>
+          <div className="mt-4 flex flex-wrap items-center gap-2">
+            {PAYMENTS.map((p) => (
+              <img key={p.alt} src={p.src} alt={p.alt} loading="lazy" className="h-7 w-auto rounded-sm bg-white p-1" />
+            ))}
+          </div>
+        </div>
+        <div>
+          <h3 className="text-primary text-sm font-bold uppercase">Selo de segurança</h3>
+          <img src={googleSafe} alt="Google Safe Badge" loading="lazy" className="mt-4 h-12 w-auto" />
+        </div>
+      </div>
       <div className="border-secondary-foreground/10 text-secondary-foreground/50 border-t py-5 text-center text-xs">
         © {new Date().getFullYear()} Integralmédica · Clone demonstrativo para fins de estudo.
       </div>
+
     </footer>
   );
 }
