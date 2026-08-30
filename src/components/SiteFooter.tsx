@@ -1,6 +1,26 @@
 import { Link } from "@tanstack/react-router";
 import { Instagram, Facebook, Youtube } from "lucide-react";
 
+import visa from "@/assets/official/pay/visa.svg";
+import mastercard from "@/assets/official/pay/mastercard.svg";
+import elo from "@/assets/official/pay/elo.svg";
+import amex from "@/assets/official/pay/amex.svg";
+import hipercard from "@/assets/official/pay/hipercard.svg";
+import diners from "@/assets/official/pay/diners.png";
+import pix from "@/assets/official/pay/pix.svg";
+import googleSafe from "@/assets/official/google-safe.png";
+
+const PAYMENTS = [
+  { src: visa, alt: "Visa" },
+  { src: mastercard, alt: "Mastercard" },
+  { src: elo, alt: "Elo" },
+  { src: amex, alt: "American Express" },
+  { src: hipercard, alt: "Hipercard" },
+  { src: diners, alt: "Diners Club" },
+  { src: pix, alt: "Pix" },
+];
+
+
 export function SiteFooter() {
   return (
     <footer className="bg-secondary text-secondary-foreground mt-20">
