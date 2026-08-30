@@ -6,6 +6,15 @@ import { Truck, ShieldCheck, CreditCard, Headphones, ChevronLeft, ChevronRight }
 import { categoriesQuery, productsQuery } from "@/lib/catalog.functions";
 import { categoryBackground, categoryImage } from "@/lib/product-images";
 import { ProductCard } from "@/components/ProductCard";
+import {
+  BlogSection,
+  FaqSection,
+  IntegralTvSection,
+  NewsletterSection,
+  SocialSection,
+  SportsSection,
+} from "@/components/HomeExtras";
+
 
 import b1 from "@/assets/official/banners/b1-brindes.jpg";
 import b2 from "@/assets/official/banners/b2-olympia.png";
@@ -59,6 +68,11 @@ function Home() {
     .filter((product) => !selectedCategory || product.category_id === selectedCategory.id)
     .slice(0, 4);
   const news = products.filter((p) => p.is_new).slice(0, 8);
+  const apparelIds = categories
+    .filter((c) => c.slug === "vestuario" || c.slug === "acessorios")
+    .map((c) => c.id);
+  const apparel = products.filter((p) => apparelIds.includes(p.category_id)).slice(0, 4);
+
 
   const [slide, setSlide] = useState(0);
   useEffect(() => {
@@ -264,27 +278,54 @@ function Home() {
         </div>
       </section>
 
-      {/* IntegralTV */}
-      <section className="mx-auto max-w-[1280px] px-4 py-14">
-        <h2 className="text-center text-[26px] font-bold italic">Conheça a IntegralTV</h2>
-        <p className="text-muted-foreground mx-auto mt-3 max-w-[720px] text-center text-[14px]">
-          Aqui nós reunimos os monstros da #DarknessNation e os superatletas do #IntegralTeam. Acompanhe a rotina dos
-          nossos atletas, com conteúdos sobre dietas, dicas de suplementação, treinos e muito mais!
+      {/* Texto de performance */}
+      <section className="mx-auto max-w-[1000px] space-y-4 px-4 py-14 text-center">
+        <h2 className="text-[22px] font-bold italic">
+          Potencialize a performance dos seus treinos com os melhores suplementos
+        </h2>
+        <p className="text-muted-foreground text-[15px] leading-relaxed">
+          Os suplementos Integralmedica são aliados indispensáveis para quem busca elevar o nível nos treinos e
+          conquistar resultados sólidos. Aqui você encontra desde o clássico whey protein concentrado, isolado ou
+          hidrolisado até a potente creatina para aumento de força, resistência e volume muscular.
         </p>
-        <div className="mt-8 grid gap-4 md:grid-cols-3">
-          {["bQsNKQgePiY", "o374emXcfsA", "TTibgXGA-as"].map((id) => (
-            <iframe
-              key={id}
-              src={`https://www.youtube.com/embed/${id}`}
-              title="IntegralTV"
-              loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              className="aspect-video w-full rounded-md"
-            />
-          ))}
-        </div>
+        <Link
+          to="/produtos"
+          search={{ categoria: undefined, busca: undefined }}
+          className="bg-primary text-primary-foreground inline-block rounded-sm px-8 py-3 text-sm font-bold uppercase"
+        >
+          Ver suplementos
+        </Link>
       </section>
+
+      <SportsSection />
+
+      {/* Roupas e Acessórios */}
+      {apparel.length > 0 && (
+        <section className="mx-auto max-w-[1024px] px-4 py-12">
+          <h2 className="text-center text-[26px] font-bold italic">Roupas e Acessórios</h2>
+          <div className="mt-2 text-center">
+            <Link
+              to="/produtos"
+              search={{ categoria: "vestuario", busca: undefined }}
+              className="text-primary text-sm font-semibold underline"
+            >
+              Ver tudo em Roupas
+            </Link>
+          </div>
+          <div className="mt-7 grid grid-cols-2 gap-x-8 gap-y-10 lg:grid-cols-4">
+            {apparel.map((p) => (
+              <ProductCard key={p.id} product={p} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      <IntegralTvSection />
+      <BlogSection />
+      <SocialSection />
+      <FaqSection />
+      <NewsletterSection />
     </div>
   );
 }
+

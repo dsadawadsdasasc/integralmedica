@@ -1,6 +1,26 @@
 import { Link } from "@tanstack/react-router";
 import { Instagram, Facebook, Youtube } from "lucide-react";
 
+import visa from "@/assets/official/pay/visa.svg";
+import mastercard from "@/assets/official/pay/mastercard.svg";
+import elo from "@/assets/official/pay/elo.svg";
+import amex from "@/assets/official/pay/amex.svg";
+import hipercard from "@/assets/official/pay/hipercard.svg";
+import diners from "@/assets/official/pay/diners.png";
+import pix from "@/assets/official/pay/pix.svg";
+import googleSafe from "@/assets/official/google-safe.png";
+
+const PAYMENTS = [
+  { src: visa, alt: "Visa" },
+  { src: mastercard, alt: "Mastercard" },
+  { src: elo, alt: "Elo" },
+  { src: amex, alt: "American Express" },
+  { src: hipercard, alt: "Hipercard" },
+  { src: diners, alt: "Diners Club" },
+  { src: pix, alt: "Pix" },
+];
+
+
 export function SiteFooter() {
   return (
     <footer className="bg-secondary text-secondary-foreground mt-20">
@@ -72,9 +92,24 @@ export function SiteFooter() {
           </p>
         </div>
       </div>
+      <div className="border-secondary-foreground/10 mx-auto grid max-w-7xl gap-8 border-t px-4 py-8 sm:grid-cols-2">
+        <div>
+          <h3 className="text-primary text-sm font-bold uppercase">Métodos de pagamento</h3>
+          <div className="mt-4 flex flex-wrap items-center gap-2">
+            {PAYMENTS.map((p) => (
+              <img key={p.alt} src={p.src} alt={p.alt} loading="lazy" className="h-7 w-auto rounded-sm bg-white p-1" />
+            ))}
+          </div>
+        </div>
+        <div>
+          <h3 className="text-primary text-sm font-bold uppercase">Selo de segurança</h3>
+          <img src={googleSafe} alt="Google Safe Badge" loading="lazy" className="mt-4 h-12 w-auto" />
+        </div>
+      </div>
       <div className="border-secondary-foreground/10 text-secondary-foreground/50 border-t py-5 text-center text-xs">
         © {new Date().getFullYear()} Integralmédica · Clone demonstrativo para fins de estudo.
       </div>
+
     </footer>
   );
 }
