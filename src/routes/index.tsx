@@ -139,7 +139,7 @@ function Home() {
               key={c.id}
               to="/produtos"
               search={{ categoria: c.slug, busca: undefined }}
-              className="group flex flex-col items-center gap-3 text-center"
+              className="group flex w-[112px] flex-col items-center gap-3 text-center"
             >
               <span className="bg-primary flex size-[92px] items-center justify-center overflow-hidden rounded-full transition-transform group-hover:scale-105">
                 <img
