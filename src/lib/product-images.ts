@@ -17,3 +17,19 @@ const map: Record<string, string> = {
 export function productImage(key: string) {
   return map[key] ?? whey;
 }
+
+const categoryMap: Record<string, string> = {
+  proteinas: whey,
+  "whey-protein": whey,
+  creatina: creatina,
+  aminoacidos: bcaa,
+  "pre-treino": preworkout,
+  barras: barra,
+  "barra-de-proteina": barra,
+  hipercalorico: hipercalorico,
+  hipercaloricos: hipercalorico,
+};
+
+export function categoryImage(slug: string) {
+  return categoryMap[slug] ?? whey;
+}

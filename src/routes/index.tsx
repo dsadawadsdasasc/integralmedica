@@ -3,6 +3,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { Truck, ShieldCheck, CreditCard, Headphones } from "lucide-react";
 
 import { categoriesQuery, productsQuery } from "@/lib/catalog.functions";
+import { categoryImage } from "@/lib/product-images";
 import { ProductCard } from "@/components/ProductCard";
 import { Button } from "@/components/ui/button";
 import heroImg from "@/assets/hero.jpg";
@@ -127,9 +128,9 @@ function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 pb-14">
+      <section className="mx-auto max-w-[1400px] px-4 pb-14">
         <div className="flex items-end justify-between">
-          <h2 className="text-3xl font-bold uppercase">Mais vendidos</h2>
+          <h2 className="text-3xl font-bold italic">Suplementos Mais Vendidos</h2>
           <Link
             to="/produtos"
             search={{ categoria: undefined, busca: undefined }}
@@ -146,8 +147,8 @@ function Home() {
       </section>
 
       {news.length > 0 && (
-        <section className="mx-auto max-w-7xl px-4 pb-14">
-          <h2 className="text-3xl font-bold uppercase">Lançamentos</h2>
+        <section className="mx-auto max-w-[1400px] px-4 pb-14">
+          <h2 className="text-3xl font-bold italic">Lançamentos</h2>
           <div className="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
             {news.map((p) => (
               <ProductCard key={p.id} product={p} />
