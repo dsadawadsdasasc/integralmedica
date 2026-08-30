@@ -28,27 +28,16 @@ export function productImage(key: string, url?: string | null) {
 }
 
 const categoryMap: Record<string, string> = {
-  "whey-protein": catWhey,
-  "barra-de-proteina": catBarra,
-  glutamina: catAmino,
-  hipercalorico: catHiper,
-  "pre-treino": catPre,
-  proteinas: catWhey,
-  "whey-protein": catWhey,
   creatina: catCreatina,
-  creatinas: catCreatina,
-  aminoacidos: catAmino,
-  glutaminas: catAmino,
-  "pre-treino": catPre,
-  "pre-treinos": catPre,
-  barras: catBarra,
-  "barras-e-snacks": catBarra,
+  "whey-protein": catWhey,
   "barra-de-proteina": catBarra,
   hipercalorico: catHiper,
-  hipercaloricos: catHiper,
+  glutamina: catAmino,
+  "pre-treino": catPre,
   vestuario: catVestuario,
   acessorios: catAcessorios,
 };
+
 
 export function categoryImage(slug: string) {
   return categoryMap[slug] ?? catWhey;
