@@ -6,6 +6,15 @@ import { Truck, ShieldCheck, CreditCard, Headphones, ChevronLeft, ChevronRight }
 import { categoriesQuery, productsQuery } from "@/lib/catalog.functions";
 import { categoryBackground, categoryImage } from "@/lib/product-images";
 import { ProductCard } from "@/components/ProductCard";
+import {
+  BlogSection,
+  FaqSection,
+  IntegralTvSection,
+  NewsletterSection,
+  SocialSection,
+  SportsSection,
+} from "@/components/HomeExtras";
+
 
 import b1 from "@/assets/official/banners/b1-brindes.jpg";
 import b2 from "@/assets/official/banners/b2-olympia.png";
