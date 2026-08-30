@@ -23,27 +23,21 @@ const map: Record<string, string> = {
   hipercalorico,
 };
 
-export function productImage(key: string) {
-  return map[key] ?? whey;
+export function productImage(key: string, url?: string | null) {
+  return url || map[key] || whey;
 }
 
 const categoryMap: Record<string, string> = {
-  proteinas: catWhey,
-  "whey-protein": catWhey,
   creatina: catCreatina,
-  creatinas: catCreatina,
-  aminoacidos: catAmino,
-  glutaminas: catAmino,
-  "pre-treino": catPre,
-  "pre-treinos": catPre,
-  barras: catBarra,
-  "barras-e-snacks": catBarra,
+  "whey-protein": catWhey,
   "barra-de-proteina": catBarra,
   hipercalorico: catHiper,
-  hipercaloricos: catHiper,
+  glutamina: catAmino,
+  "pre-treino": catPre,
   vestuario: catVestuario,
   acessorios: catAcessorios,
 };
+
 
 export function categoryImage(slug: string) {
   return categoryMap[slug] ?? catWhey;

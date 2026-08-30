@@ -9,11 +9,11 @@ import darknessLogo from "@/assets/official/darkness.webp";
 
 const NAV: { label: string; slug?: string; to?: string; caret?: boolean }[] = [
   { label: "Produtos", caret: true },
-  { label: "Creatina", slug: "creatinas" },
-  { label: "Proteínas", slug: "proteinas" },
-  { label: "Barra de Proteína", slug: "barras-snacks" },
-  { label: "Hipercalórico", slug: "hipercaloricos" },
-  { label: "Pré Treino", slug: "pre-treinos" },
+  { label: "Creatina", slug: "creatina" },
+  { label: "Proteínas", slug: "whey-protein" },
+  { label: "Barra de Proteína", slug: "barra-de-proteina" },
+  { label: "Hipercalórico", slug: "hipercalorico" },
+  { label: "Pré Treino", slug: "pre-treino" },
   { label: "Central de Promoções", to: "/produtos" },
   { label: "Objetivos", caret: true, to: "/sobre" },
 ];
