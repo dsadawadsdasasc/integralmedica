@@ -59,6 +59,11 @@ function Home() {
     .filter((product) => !selectedCategory || product.category_id === selectedCategory.id)
     .slice(0, 4);
   const news = products.filter((p) => p.is_new).slice(0, 8);
+  const apparelIds = categories
+    .filter((c) => c.slug === "vestuario" || c.slug === "acessorios")
+    .map((c) => c.id);
+  const apparel = products.filter((p) => apparelIds.includes(p.category_id)).slice(0, 4);
+
 
   const [slide, setSlide] = useState(0);
   useEffect(() => {
