@@ -23,11 +23,16 @@ const map: Record<string, string> = {
   hipercalorico,
 };
 
-export function productImage(key: string) {
-  return map[key] ?? whey;
+export function productImage(key: string, url?: string | null) {
+  return url || map[key] || whey;
 }
 
 const categoryMap: Record<string, string> = {
+  "whey-protein": catWhey,
+  "barra-de-proteina": catBarra,
+  glutamina: catAmino,
+  hipercalorico: catHiper,
+  "pre-treino": catPre,
   proteinas: catWhey,
   "whey-protein": catWhey,
   creatina: catCreatina,

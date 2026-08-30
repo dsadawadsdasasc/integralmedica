@@ -23,12 +23,12 @@ export function ProductCard({ product }: { product: Product }) {
           </span>
         )}
         <img
-          src={productImage(product.image_key)}
+          src={productImage(product.image_key, product.image_url)}
           alt={product.name}
           loading="lazy"
           width={800}
           height={800}
-          className="aspect-square w-full object-cover transition-transform duration-300 group-hover:scale-105"
+          className="aspect-square w-full bg-white object-contain transition-transform duration-300 group-hover:scale-105"
         />
       </div>
       <div className="flex flex-1 flex-col p-4">

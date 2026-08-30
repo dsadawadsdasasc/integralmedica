@@ -14,6 +14,7 @@ export interface Product {
   price_cents: number;
   compare_at_cents: number | null;
   image_key: string;
+  image_url?: string | null;
   tags?: string[];
   flavors: string[];
   rating: number;

@@ -85,7 +85,7 @@ function ProductPage() {
       <div className="grid gap-10 lg:grid-cols-2">
         <div className="bg-muted overflow-hidden rounded-md">
           <img
-            src={productImage(product.image_key)}
+            src={productImage(product.image_key, product.image_url)}
             alt={product.name}
             width={800}
             height={800}
