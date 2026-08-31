@@ -30,7 +30,11 @@ export const listProducts = createServerFn({ method: "GET" })
       if (!categoryId) return [] as Product[];
     }
 
-    let query = client.from("products").select("*").order("is_featured", { ascending: false });
+    let query = client
+      .from("products")
+      .select("*")
+      .order("sort_order", { ascending: true })
+      .order("name", { ascending: true });
     if (categoryId) query = query.eq("category_id", categoryId);
     if (input.search) query = query.ilike("name", `%${input.search}%`);
 

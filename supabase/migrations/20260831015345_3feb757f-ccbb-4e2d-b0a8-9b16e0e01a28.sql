@@ -1,0 +1,2 @@
+alter table public.products add column if not exists sort_order integer not null default 0;
+insert into public.categories (slug, name, sort_order) values ('outros-suplementos','Outros Suplementos',99) on conflict (slug) do nothing;

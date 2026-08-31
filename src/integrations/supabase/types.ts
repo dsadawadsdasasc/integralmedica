@@ -175,6 +175,7 @@ export type Database = {
           rating: number
           reviews_count: number
           slug: string
+          sort_order: number
           stock: number
           tags: string[]
         }
@@ -194,6 +195,7 @@ export type Database = {
           rating?: number
           reviews_count?: number
           slug: string
+          sort_order?: number
           stock?: number
           tags?: string[]
         }
@@ -213,6 +215,7 @@ export type Database = {
           rating?: number
           reviews_count?: number
           slug?: string
+          sort_order?: number
           stock?: number
           tags?: string[]
         }
