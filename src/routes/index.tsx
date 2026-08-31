@@ -60,7 +60,8 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
-  const { data: categories } = useSuspenseQuery(categoriesQuery);
+  const { data: allCategories } = useSuspenseQuery(categoriesQuery);
+  const categories = allCategories.filter((c) => c.sort_order < 90);
   const { data: products } = useSuspenseQuery(productsQuery({}));
   const [featuredCategory, setFeaturedCategory] = useState("creatina");
   const selectedCategory = categories.find((category) => category.slug === featuredCategory);
