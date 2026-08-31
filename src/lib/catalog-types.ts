@@ -22,6 +22,7 @@ export interface Product {
   stock: number;
   is_featured: boolean;
   is_new: boolean;
+  sort_order?: number;
 }
 
 export interface OrderItem {
